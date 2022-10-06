@@ -12,8 +12,8 @@ public class BubbleSortTest {
     @Test
     public void testBubbleSort() {
         //prepare input
-        int[] arr1 = new int[]{4,2,5,-2, 98,65};
-        List<Integer> list2 = Arrays.asList(1, 2, 3, 4);
+        int[] arr1 = {4,2,5,-2, 98,65};
+//        List<Integer> list2 = Arrays.asList(1, 2, 3, 4);
         List<Integer> list = Arrays.stream(arr1).boxed().collect(Collectors.toList());
         int[] arr2 = list.stream().mapToInt(i -> i).toArray();
 
