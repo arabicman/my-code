@@ -1,0 +1,17 @@
+<xml>
+<item>
+<item-id>1</item-id>
+<item-name>laptop</item-name>
+<item-cost>$2500</item-cost>
+</item>
+<item>
+<item-id>2</item-id>
+<item-name>Mouse</item-name>
+<item-cost>$10</item-cost>
+</item>
+<item>
+<item-id>3</item-id>
+<item-name>Monitor</item-name>
+<item-cost>$50</item-cost>
+</item>
+</xml>
