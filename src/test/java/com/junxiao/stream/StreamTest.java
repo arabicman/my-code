@@ -13,10 +13,12 @@ public class StreamTest {
 
     @Before
     public void init()  {
-        Employee emp1 = new Employee(1, "Jack");
-        Employee emp2 = new Employee(2, "Mary");
-        Employee emp3 = new Employee(3, "Rose");
-        empList = Arrays.asList(emp1, emp2, emp3);
+        Employee emp1 = new Employee(1, "Jack", true, "IT");
+        Employee emp2 = new Employee(2, "Mary", true, "MNG");
+        Employee emp3 = new Employee(3, "Rose", true, "IT");
+        Employee emp4 = new Employee(4, "Roger", true, "MNG");
+        Employee emp5 = new Employee(5, "Mike", false, "MNG");
+        empList = Arrays.asList(emp1, emp2, emp3, emp4, emp5);
     }
 
     @Test
@@ -45,7 +47,6 @@ public class StreamTest {
 
     }
 
-
     @Test
     public void streamProcessTest() {
         int[] numbers = {4, 6, 13, 90, 16, 2, 0};
@@ -73,7 +74,7 @@ public class StreamTest {
         intStream.filter(num -> num % 2 == 0);  //only even number
         intStream.map(num -> num *2);           //double each value
         intStream.boxed();                      //convert Int to Integer
-        intStream.mapToObj(i -> new Employee(i, "Emp"+i)); //convert to Object
+//        intStream.mapToObj(i -> new Employee(i, "Emp"+i)); //convert to Object
 
         //6. consume stream
         intStream.average();
@@ -92,9 +93,43 @@ public class StreamTest {
     @Test
     public void streamCollectTest() {
         //7. Collectors
+        // to list
+        List<String> collect = empList.stream()
+                .sorted(Comparator.comparingInt(Employee::getId).reversed())
+                .filter(Employee::isActive)
+                .limit(3)
+                .map(Employee::getName)
+                .collect(Collectors.toList());
 
+        // to set
+        Set<String> stringSet = empList.stream()
+                .limit(3)
+                .map(Employee::getName)
+                .collect(Collectors.toSet());
+        // to map
+        Map<String, Employee> employeeMap = empList.stream()
+                .filter(Employee::isActive)
+                .collect(Collectors.toMap(e -> e.getName(), e -> e));
 
+        //joining
+        String joinStr = empList.stream()
+                .filter(Employee::isActive)
+                .map(Employee::getName)
+                .collect(Collectors.joining(", "));
 
+        //groupBy
+        Map<String, List<Employee>> groupingMap = empList.stream()
+                .filter(Employee::isActive)
+                .collect(Collectors.groupingBy(Employee::getDept));
+
+        //count employees in each dept
+        Map<String, Long> countMap = empList.stream()
+                .filter(Employee::isActive)
+                .collect(Collectors.groupingBy(Employee::getDept, Collectors.counting()));
+
+        System.out.println(joinStr);
+        System.out.println(groupingMap);
+        System.out.println(countMap);
 
 
     }

@@ -13,12 +13,17 @@ import lombok.Setter;
 public class Employee {
     int id;
     String name;
+    boolean isActive;
+
+    String dept;
 
     @Override
     public String toString() {
         return "Employee{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", isActive=" + isActive +
+                ", dept='" + dept + '\'' +
                 '}';
     }
 }
