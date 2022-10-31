@@ -111,13 +111,13 @@ public class StreamTest {
                 .filter(Employee::isActive)
                 .collect(Collectors.toMap(e -> e.getName(), e -> e));
 
-        //joining
+        //joining list to string
         String joinStr = empList.stream()
                 .filter(Employee::isActive)
                 .map(Employee::getName)
                 .collect(Collectors.joining(", "));
 
-        //groupBy
+        //group by dept
         Map<String, List<Employee>> groupingMap = empList.stream()
                 .filter(Employee::isActive)
                 .collect(Collectors.groupingBy(Employee::getDept));
@@ -131,6 +131,13 @@ public class StreamTest {
         System.out.println(groupingMap);
         System.out.println(countMap);
 
+    }
 
+    @Test
+    public void streamParallelTest() {
+        //8. Parallel Stream: Only when more than 10000+ elements， Even then measure first.
+        Map<String, List<Employee>> collect = empList.stream()
+                .parallel()
+                .collect(Collectors.groupingBy(Employee::getDept));
     }
 }
